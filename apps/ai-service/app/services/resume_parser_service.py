@@ -4,15 +4,15 @@ import tempfile
 
 from fastapi import UploadFile
 
+from app.parsers.section_parser import SectionParser
 from app.services.pdf_service import PDFService
-from app.services.section_service import SectionService
 
 
 class ResumeParserService:
 
     def __init__(self):
         self.pdf_service = PDFService()
-        self.section_service = SectionService()
+        self.section_parser = SectionParser()
 
     async def parse(self, file: UploadFile):
 
@@ -30,7 +30,7 @@ class ResumeParserService:
 
             text = self.pdf_service.extract_text(temp_path)
 
-            sections = self.section_service.split(text)
+            sections = self.section_parser.parse(text)
 
             return {
                 "filename": file.filename,
