@@ -1,11 +1,10 @@
-from pydantic import BaseModel, EmailStr, HttpUrl
+from pydantic import BaseModel, Field
 
 class PersonalInfo(BaseModel):
-    full_name: str
-    email: EmailStr | None = None
-    phone: str | None = None
-    location: str | None = None
-
-    linkedin: HttpUrl | None = None
-    github: HttpUrl | None = None
-    portfolio: HttpUrl | None = None
+    full_name: str = Field(default="")
+    email: str = Field(default="")
+    phone: str = Field(default="")
+    linkedin: str = Field(default="")
+    github: str = Field(default="")
+    portfolio: str = Field(default="")
+    location: str = Field(default="")

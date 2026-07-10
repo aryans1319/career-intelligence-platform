@@ -1,13 +1,9 @@
-from pydantic import BaseModel, Field, HttpUrl
+from pydantic import BaseModel, Field
 
 
 class Project(BaseModel):
-    name: str
-
-    description: list[str] = Field(default_factory=list)
-
+    name: str = Field(default="")
     tech_stack: list[str] = Field(default_factory=list)
-
-    github: HttpUrl | None = None
-
-    live_url: HttpUrl | None = None
+    github_url: str = Field(default="")
+    live_url: str = Field(default="")
+    description: list[str] = Field(default_factory=list)

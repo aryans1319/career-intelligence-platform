@@ -1,19 +1,18 @@
 from pydantic import BaseModel, Field
 
-from app.models.certification import Certification
-from app.models.education import Education
-from app.models.experience import Experience
 from app.models.personal_info import PersonalInfo
+from app.models.experience import Experience
 from app.models.project import Project
 from app.models.skill import Skills
+from app.models.education import Education
 
 
 class Resume(BaseModel):
-    personal_info: PersonalInfo
+    personal_info: PersonalInfo = Field(default_factory=PersonalInfo)
 
-    summary: str = ""
+    summary: str = Field(default="")
 
-    experience: list[Experience] = Field(default_factory=list)
+    experiences: list[Experience] = Field(default_factory=list)
 
     projects: list[Project] = Field(default_factory=list)
 
@@ -21,6 +20,6 @@ class Resume(BaseModel):
 
     education: list[Education] = Field(default_factory=list)
 
-    certifications: list[Certification] = Field(default_factory=list)
+    certifications: list[str] = Field(default_factory=list)
 
     achievements: list[str] = Field(default_factory=list)

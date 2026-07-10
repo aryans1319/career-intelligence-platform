@@ -1,4 +1,8 @@
+from typing import Type
+
 from google import genai
+from google.genai import types
+from pydantic import BaseModel
 
 from app.core.config import settings
 
@@ -10,10 +14,28 @@ class LLMService:
             api_key=settings.GEMINI_API_KEY
         )
 
-    def hello(self) -> str:
+    def generate(
+        self,
+        prompt: str,
+        schema: Type[BaseModel] | None = None,
+    ):
+
+        if schema:
+
+            response = self.client.models.generate_content(
+                model="gemini-2.5-flash",
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    response_mime_type="application/json",
+                    response_schema=schema,
+                ),
+            )
+
+            return response.parsed
+
         response = self.client.models.generate_content(
             model="gemini-2.5-flash",
-            contents="Reply with only: Hello Aryan"
+            contents=prompt,
         )
 
         return response.text

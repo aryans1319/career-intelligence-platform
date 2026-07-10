@@ -1,17 +1,10 @@
-from datetime import date
-
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class Education(BaseModel):
-    institution: str
-
-    degree: str
-
-    branch: str | None = None
-
-    cgpa: float | None = None
-
-    start_date: date | None = None
-
-    end_date: date | None = None
+    institution: str = Field(default="")
+    degree: str = Field(default="")
+    field_of_study: str = Field(default="")
+    start_date: str = Field(default="")
+    end_date: str = Field(default="")
+    cgpa: str = Field(default="")
